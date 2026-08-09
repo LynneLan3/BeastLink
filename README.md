@@ -69,9 +69,9 @@ vercel --prod           # 正式发布到生产环境
 
 ## 3. 部署后：正式 URL 在哪里替换
 
-> **状态：部署后以 Vercel 输出的正式域名为准。** 当前占位域名：`https://hot-words-beastlink.vercel.app`
+> **状态：已完成。** 正式域名是：`https://hot-words-beastlink.vercel.app`
 
-若正式域名不同或之后换成自定义域名，在以下文件替换域名（保留路径）：
+若之后换成自定义域名，在以下文件替换域名（保留路径）：
 
 | 文件 | 需要替换的内容 |
 |---|---|
@@ -89,7 +89,7 @@ grep -rl "旧域名" . --include="*.html" --include="*.xml" --include="*.txt" \
 
 ## 4. canonical / sitemap 是否需要替换域名
 
-**需要**（若正式 Vercel URL 与占位域名不一致，或换自定义域名时）。部署完成后应让 canonical / sitemap / robots 与正式域名一致。
+**需要**（换自定义域名时）。当前 canonical / sitemap / robots 已与正式 Vercel 域名一致。
 
 ---
 
