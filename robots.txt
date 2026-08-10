@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://hot-words-beastlink.vercel.app/sitemap.xml
+Sitemap: https://beast-link.vercel.app/sitemap.xml

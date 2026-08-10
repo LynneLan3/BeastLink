@@ -24,7 +24,7 @@ sitemap.xml
 vercel.json                              强制 URL 带斜杠(保证 canonical 一致)
 ```
 
-正式站点：`https://hot-words-beastlink.vercel.app/`
+正式站点：`https://beast-link.vercel.app/`
 
 GitHub：`https://github.com/LynneLan3/BeastLink`
 
@@ -69,7 +69,7 @@ vercel --prod           # 正式发布到生产环境
 
 ## 3. 部署后：正式 URL 在哪里替换
 
-> **状态：已完成。** 正式域名是：`https://hot-words-beastlink.vercel.app`
+> **状态：已完成。** 正式域名是：`https://beast-link.vercel.app`
 
 若之后换成自定义域名，在以下文件替换域名（保留路径）：
 
