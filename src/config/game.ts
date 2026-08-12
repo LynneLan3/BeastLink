@@ -32,6 +32,8 @@ export interface GameConfig {
 	platforms: readonly string[];
 	accentColor: string;
 	heroImage?: string;
+	heroAlt?: string;
+	heroPosition?: string;
 	logoImage?: string;
 	categories: readonly GameCategory[];
 	portal?: GamePortalConfig;
@@ -51,6 +53,9 @@ export const game: GameConfig = {
 	publisher: 'Grove Street Games',
 	platforms: ['PC via Steam'],
 	accentColor: '#be123c',
+	heroImage: 'hero.jpg',
+	heroAlt: 'Official Steam screenshot for BeastLink',
+	heroPosition: 'center 42%',
 	portal: {
 		popularQuestions: [
 			{ label: 'When does BeastLink Early Access start?', href: '/beastlink/release-date/' },
