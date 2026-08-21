@@ -2,7 +2,7 @@
 /**
  * Formal Experience Homepage (V2.2-E1) — rendered at `/{hubPath}/`.
  *
- * Owns the formal generated presentation on the splash entry. Every
+ * Replaces the legacy GamePortal presentation on the splash entry. Every
  * section is data-driven from existing runtime config (`game`, `game.routes`,
  * `game.portal`) and the existing docs content collection. No new Homepage
  * schema. Sections are omitted (never placeholder-filled) when their data is
@@ -33,6 +33,7 @@ import {
 	ui,
 } from '../../lib/ui';
 import ExperienceRouteShowcase from './ExperienceRouteShowcase.astro';
+import RouteTopicCard from './routes/RouteTopicCard.astro';
 
 const t = ui();
 const guides = await getGuides();
@@ -114,6 +115,8 @@ const statusItems = (
 
 /* ── Choose Your Route ── */
 const routes = game.routes ?? [];
+const singleRoute = routes.length === 1 ? routes[0] : undefined;
+const singleRouteStartGuides = singleRoute?.pages ?? [];
 
 /* ── Popular Questions ── */
 const popularQuestions = game.portal?.popularQuestions ?? [];
@@ -194,86 +197,112 @@ const showAbout = game.portal?.showAbout !== false;
 	</dl>
 )}
 
-<!-- 03 CHOOSE YOUR ROUTE -->
-{routes.length > 0 && <ExperienceRouteShowcase routes={routes} />}
+<div class="exp-home-flow">
+	<!-- 03 ROUTES / PRIMARY PATH -->
+	{routes.length > 1 && <ExperienceRouteShowcase routes={routes} />}
 
-<!-- 04 START HERE -->
-{startHere.length > 0 && (
-	<>
-		<section class="exp-section exp-home-start" aria-labelledby="exp-home-start-heading">
+	{singleRoute && (
+		<section class="exp-section exp-home-primary-path" aria-labelledby="exp-home-primary-path-heading">
 			<div class="exp-content">
 				<p class="exp-eyebrow">{t.startHere}</p>
-				<h2 class="exp-h2" id="exp-home-start-heading">{t.startHereTitle}</h2>
-				<p class="exp-lede">{t.startHereSectionLede}</p>
-				<div class="exp-start-list">
-					{startHere.map((item) => (
-						<a class="exp-start-item" href={item.href}>
-							<span class="exp-start-item__eyebrow">{item.label ?? item.badge}</span>
-							<span class="exp-start-item__title">{item.title}</span>
-							<span class="exp-start-item__arrow" aria-hidden="true">→</span>
+				<h2 class="exp-h2" id="exp-home-primary-path-heading">{singleRoute.title}</h2>
+				<p class="exp-lede">{singleRoute.description}</p>
+				<div class="exp-primary-path">
+					<RouteTopicCard route={singleRoute} number="01" variant="primary" />
+					{singleRouteStartGuides.length > 0 && (
+						<div class="exp-primary-path__guides" aria-label={t.followTheRoute}>
+							{singleRouteStartGuides.map((page) => (
+								<a class="exp-primary-guide" href={page.href}>
+									<span class="exp-primary-guide__label">{page.eyebrow ?? t.read}</span>
+									<span class="exp-primary-guide__title">{page.title}</span>
+									<span class="exp-primary-guide__desc">{page.description}</span>
+									<span class="exp-primary-guide__arrow" aria-hidden="true">→</span>
+								</a>
+							))}
+						</div>
+					)}
+				</div>
+			</div>
+		</section>
+	)}
+
+	<!-- 04 START HERE -->
+	{!singleRoute && startHere.length > 0 && (
+		<>
+			<section class="exp-section exp-home-start" aria-labelledby="exp-home-start-heading">
+				<div class="exp-content">
+					<p class="exp-eyebrow">{t.startHere}</p>
+					<h2 class="exp-h2" id="exp-home-start-heading">{t.startHereTitle}</h2>
+					<p class="exp-lede">{t.startHereSectionLede}</p>
+					<div class="exp-start-list">
+						{startHere.map((item) => (
+							<a class="exp-start-item" href={item.href}>
+								<span class="exp-start-item__eyebrow">{item.label ?? item.badge}</span>
+								<span class="exp-start-item__title">{item.title}</span>
+								<span class="exp-start-item__arrow" aria-hidden="true">→</span>
+							</a>
+						))}
+					</div>
+				</div>
+			</section>
+			<AdSlot placement="hub-after-start-here" />
+		</>
+	)}
+
+	<!-- 05 POPULAR QUESTIONS -->
+	{popularQuestions.length > 0 && (
+		<section class="exp-section exp-section--tinted exp-home-questions" aria-labelledby="exp-home-questions-heading">
+			<div class="exp-content">
+				<p class="exp-eyebrow">{t.popularQuestions}</p>
+				<h2 class="exp-h2" id="exp-home-questions-heading">{t.popularQuestions}</h2>
+				<p class="exp-lede">{t.popularQuestionsLede}</p>
+				<div class="exp-questions">
+					{popularQuestions.map((question) => (
+						<a class="exp-question" href={question.href}>
+							<span class="exp-question__copy">
+								<span class="exp-question__title">{question.label}</span>
+								{question.context && <span class="exp-question__context">{question.context}</span>}
+							</span>
+							<span class="exp-question__cta">{t.readGuide}</span>
 						</a>
 					))}
 				</div>
 			</div>
 		</section>
-		<AdSlot placement="hub-after-start-here" />
-	</>
-)}
+	)}
 
-<!-- 05 POPULAR QUESTIONS -->
-{popularQuestions.length > 0 && (
-	<section class="exp-section exp-section--tinted exp-home-questions" aria-labelledby="exp-home-questions-heading">
-		<div class="exp-content">
-			<p class="exp-eyebrow">{t.popularQuestions}</p>
-			<h2 class="exp-h2" id="exp-home-questions-heading">{t.popularQuestions}</h2>
-			<p class="exp-lede">{t.popularQuestionsLede}</p>
-			<div class="exp-questions">
-				{popularQuestions.map((question) => (
-					<a class="exp-question" href={question.href}>
-						<span class="exp-question__copy">
-							<span class="exp-question__title">{question.label}</span>
-							{question.context && <span class="exp-question__context">{question.context}</span>}
-						</span>
-						<span class="exp-question__cta">{t.readGuide}</span>
-					</a>
-				))}
-			</div>
-		</div>
-	</section>
-)}
-
-<!-- 06 FEATURED -->
-{featured && featuredHref && (
-	<section class="exp-section exp-home-featured" aria-labelledby="exp-home-featured-heading">
-		<div class="exp-wide">
-			<div class:list={['exp-featured', !featuredHasCover && 'exp-featured--content-only']}>
-				{featured.data.cover && (
-					<a class="exp-featured__image" href={featuredHref}>
-						<Image
-							src={featured.data.cover}
-							alt={featured.data.title}
-							width={1280}
-							height={720}
-							sizes="(min-width: 50rem) 55vw, 100vw"
-							loading="lazy"
-						/>
-					</a>
-				)}
-				<div class="exp-featured__copy">
-					<span class="exp-eyebrow">{featuredEyebrow}</span>
-					<h2 class="exp-h2" id="exp-home-featured-heading">{featured.data.title}</h2>
-					<p class="exp-lede">{featured.data.description}</p>
-					<a class="exp-cta-link" href={featuredHref}>
-						{t.readGuide}
-					</a>
+	<!-- 06 FEATURED -->
+	{featured && featuredHref && (
+		<section class="exp-section exp-home-featured" aria-labelledby="exp-home-featured-heading">
+			<div class="exp-wide">
+				<div class:list={['exp-featured', !featuredHasCover && 'exp-featured--content-only']}>
+					{featured.data.cover && (
+						<a class="exp-featured__image" href={featuredHref}>
+							<Image
+								src={featured.data.cover}
+								alt={featured.data.title}
+								width={1280}
+								height={720}
+								sizes="(min-width: 50rem) 55vw, 100vw"
+								loading="lazy"
+							/>
+						</a>
+					)}
+					<div class="exp-featured__copy">
+						<span class="exp-eyebrow">{featuredEyebrow}</span>
+						<h2 class="exp-h2" id="exp-home-featured-heading">{featured.data.title}</h2>
+						<p class="exp-lede">{featured.data.description}</p>
+						<a class="exp-cta-link" href={featuredHref}>
+							{t.readGuide}
+						</a>
+					</div>
 				</div>
 			</div>
-		</div>
-	</section>
-)}
+		</section>
+	)}
 
-<!-- 07 FIELD NOTES -->
-{fieldNotes.length > 0 && (
+	<!-- 07 FIELD NOTES -->
+	{fieldNotes.length > 0 && (
 	<section class="exp-section exp-section--tinted exp-home-notes" aria-labelledby="exp-home-notes-heading">
 		<div class="exp-content">
 			<p class="exp-eyebrow">{t.fieldNotes}</p>
@@ -316,10 +345,10 @@ const showAbout = game.portal?.showAbout !== false;
 			</div>
 		</div>
 	</section>
-)}
+	)}
 
-<!-- 08 RECENTLY UPDATED -->
-{recentlyUpdated.length > 0 && (
+	<!-- 08 RECENTLY UPDATED -->
+	{recentlyUpdated.length > 0 && (
 	<section class="exp-section exp-home-recent" aria-labelledby="exp-home-recent-heading">
 		<div class="exp-content">
 			<p class="exp-eyebrow">{t.recentlyUpdated}</p>
@@ -342,10 +371,10 @@ const showAbout = game.portal?.showAbout !== false;
 			</ul>
 		</div>
 	</section>
-)}
+	)}
 
-<!-- 09 EVIDENCE -->
-{evidenceItems.length > 0 && (
+	<!-- 09 EVIDENCE -->
+	{evidenceItems.length > 0 && (
 	<section class="exp-section exp-section--dark exp-home-evidence" aria-labelledby="exp-home-evidence-heading">
 		<div class="exp-content">
 			<p class="exp-eyebrow">{t.seeGameInAction}</p>
@@ -382,10 +411,10 @@ const showAbout = game.portal?.showAbout !== false;
 			</div>
 		</div>
 	</section>
-)}
+	)}
 
-<!-- 10 ABOUT -->
-{showAbout && (
+	<!-- 10 ABOUT -->
+	{showAbout && (
 	<section class="exp-section exp-home-about" id="about" aria-labelledby="exp-home-about-heading">
 		<div class="exp-content">
 			<p class="exp-eyebrow">{t.aboutGame(game.name)}</p>
@@ -412,4 +441,5 @@ const showAbout = game.portal?.showAbout !== false;
 			</dl>
 		</div>
 	</section>
-)}
+	)}
+</div>

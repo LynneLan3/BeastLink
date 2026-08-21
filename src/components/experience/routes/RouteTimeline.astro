@@ -7,6 +7,7 @@
  * optional image (only when the data provides one), and href.
  */
 import { assetUrl } from './asset-url';
+import { ui } from '../../../lib/ui';
 import type { GameRoutePage } from '../../../config/game-types';
 
 interface Props {
@@ -14,9 +15,10 @@ interface Props {
 }
 
 const { pages } = Astro.props;
+const t = ui();
 ---
 
-<div class="exp-route-path">
+<div class="exp-route-guide-grid">
 	{pages.map((page, index) => {
 		const imageUrl = assetUrl(page.image);
 		return (
@@ -28,6 +30,7 @@ const { pages } = Astro.props;
 					{page.eyebrow && <span class="exp-route-step__eyebrow">{page.eyebrow}</span>}
 					<span class="exp-route-step__title">{page.title}</span>
 					<span class="exp-route-step__desc">{page.description}</span>
+					<span class="exp-cta-link exp-route-step__cta">{t.readGuide}</span>
 				</div>
 				{page.image && imageUrl && (
 					<div class="exp-route-step__visual">

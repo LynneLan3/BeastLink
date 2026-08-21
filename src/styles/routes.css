@@ -324,6 +324,51 @@
 	align-self: start;
 }
 
+.exp-route-guide-grid {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 0.85rem;
+}
+
+.exp-route-guide-grid .exp-route-step {
+	grid-template-columns: auto 1fr;
+	gap: 0 1rem;
+	padding: 1rem 1.1rem;
+	border: 1px solid var(--xp-border);
+	background: color-mix(in srgb, var(--xp-surface) 28%, transparent);
+	transition: border-color 140ms, background 140ms, transform 140ms;
+}
+
+.exp-route-guide-grid .exp-route-step:hover,
+.exp-route-guide-grid .exp-route-step:focus-visible {
+	border-color: color-mix(in srgb, var(--xp-accent) 54%, var(--xp-border));
+	background: color-mix(in srgb, var(--xp-surface) 42%, transparent);
+	transform: translateY(-1px);
+}
+
+.exp-route-guide-grid .exp-route-step__body {
+	align-content: start;
+}
+
+.exp-route-step__cta {
+	margin-top: 0.25rem;
+}
+
+.exp-route-guide-grid .exp-route-step__visual {
+	grid-column: 2;
+	max-width: none;
+}
+
+@media (min-width: 58rem) {
+	.exp-route-guide-grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.exp-route-guide-grid .exp-route-step {
+		min-height: 100%;
+	}
+}
+
 /* ═══════════════════════════════════════════════════
    OTHER ROUTES
    ═══════════════════════════════════════════════════ */
@@ -415,7 +460,12 @@
 
 .exp-taskmap {
 	display: grid;
-	gap: 0;
+	grid-template-columns: 1fr;
+	gap: 1rem;
+}
+
+@media (min-width: 50rem) {
+	.exp-taskmap { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 .exp-task-route {
