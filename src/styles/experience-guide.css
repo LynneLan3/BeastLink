@@ -1,0 +1,701 @@
+/**
+ * Formal Experience Guide styles (V2.2-D1).
+ *
+ * Editorial presentation for Guide content pages rendered through the
+ * Experience Guide layout inside the Starlight shell. Builds on
+ * `experience.css` primitives (exp-wide / exp-content / exp-reading).
+ */
+
+/* ═══════════════════════════════════════════════════
+   STARLIGHT SHELL RESET (Experience Guide only)
+   ═══════════════════════════════════════════════════ */
+
+/* PageFrame override emits `.exp-guide-frame` in place of the fixed
+   header/sidebar frame; TwoColumnContent emits a bare `.main-pane`.
+   Reset Starlight's content chrome so the editorial width system owns
+   the layout. */
+.exp-guide-frame {
+	width: 100%;
+	padding-top: 0;
+	padding-inline-start: 0;
+	min-height: 100vh;
+	background: var(--xp-bg);
+	color: var(--xp-text);
+}
+
+.exp-guide-frame .main-pane,
+.exp-guide-frame main,
+.exp-guide-frame .content-panel {
+	background: var(--xp-bg);
+	color: var(--xp-text);
+}
+
+.exp-guide-frame main {
+	padding: 0;
+}
+
+.exp-guide-frame .content-panel {
+	padding: 0;
+}
+
+.exp-guide-frame .content-panel + .content-panel {
+	border-top: none;
+}
+
+.exp-guide-frame .sl-container {
+	max-width: none;
+	width: auto;
+	margin-inline: 0;
+}
+
+/* Hide Starlight's per-heading anchor link icons inside the editorial body
+   (their styles only target .sl-markdown-content, which the Experience guide
+   does not use, so they would otherwise render as bare SVGs). */
+.exp-guide-prose .sl-anchor-link {
+	display: none;
+}
+
+/* ═══════════════════════════════════════════════════
+   WIDTH SYSTEM WRAPPERS
+   ═══════════════════════════════════════════════════ */
+
+.exp-guide-crumb-wrap {
+	max-width: var(--xp-reading);
+	margin-inline: auto;
+	padding-inline: 1.5rem;
+}
+
+.exp-guide-header-wrap {
+	max-width: var(--xp-reading);
+	margin-inline: auto;
+	padding-inline: 1.5rem;
+}
+
+.exp-guide-hero-wrap {
+	max-width: var(--xp-content);
+	margin-inline: auto;
+	padding-inline: 1.5rem;
+}
+
+.exp-guide-facts-wrap {
+	max-width: var(--xp-reading);
+	margin-inline: auto;
+	padding-inline: 1.5rem;
+}
+
+.exp-guide-body-wrap {
+	max-width: var(--xp-reading);
+	margin-inline: auto;
+	padding-inline: 1.5rem;
+	padding-bottom: 2.5rem;
+}
+
+.exp-guide-sections-block {
+	max-width: var(--xp-reading);
+	margin-inline: auto;
+	padding-inline: 1.5rem;
+}
+
+.exp-guide-sections-block.exp-guide-evidence-wrap {
+	max-width: var(--xp-content);
+}
+
+/* ═══════════════════════════════════════════════════
+   BREADCRUMB
+   ═══════════════════════════════════════════════════ */
+
+.exp-guide-crumb {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.4rem;
+	padding: 1.5rem 0 0;
+	font-size: var(--xp-text-sm);
+	color: var(--xp-text-dim);
+}
+
+.exp-guide-crumb a {
+	color: var(--xp-accent-text);
+	text-decoration: none;
+}
+
+.exp-guide-crumb a:hover { text-decoration: underline; }
+
+.exp-guide-crumb__sep { opacity: 0.5; }
+
+.exp-guide-crumb span[aria-current='page'] {
+	color: var(--xp-text-muted);
+}
+
+/* ═══════════════════════════════════════════════════
+   GUIDE HEADER
+   ═══════════════════════════════════════════════════ */
+
+.exp-guide-header { padding: 1.5rem 0 0; }
+@media (min-width: 50rem) { .exp-guide-header { padding: 2.25rem 0 0; } }
+
+.exp-guide-header__eyebrow { margin-bottom: 0.75rem; }
+
+.exp-guide-header__title { margin: 0 0 0.85rem; }
+
+.exp-guide-header__dek {
+	margin: 0 0 1.25rem;
+	max-width: 42rem;
+}
+
+.exp-guide-header__meta {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem 0.85rem;
+	align-items: center;
+	font-size: var(--xp-text-sm);
+	color: var(--xp-text-dim);
+	margin-bottom: 2rem;
+}
+
+/* GuideStatus pill reuses gw- classes; keep them readable on experience bg. */
+.exp-guide-header__meta .gw-status {
+	display: inline-block;
+	padding: 0.15rem 0.55rem;
+	border-radius: 999px;
+	border: 1px solid var(--xp-border);
+	font-size: 0.7rem;
+	font-weight: 700;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--xp-text-bright);
+}
+
+/* ═══════════════════════════════════════════════════
+   HERO (content width)
+   ═══════════════════════════════════════════════════ */
+
+.exp-guide-hero-image {
+	margin: 0 0 2.5rem;
+	overflow: hidden;
+	border: 1px solid var(--xp-border-subtle);
+}
+
+.exp-guide-hero-image img {
+	display: block;
+	width: 100%;
+	aspect-ratio: 21 / 9;
+	object-fit: cover;
+}
+
+/* ═══════════════════════════════════════════════════
+   FACTS STRIP
+   ═══════════════════════════════════════════════════ */
+
+.exp-facts-strip {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 0;
+	margin: 0 0 2rem;
+	border: 1px solid var(--xp-border);
+	overflow: hidden;
+}
+
+@media (max-width: 30rem) {
+	.exp-facts-strip { grid-template-columns: repeat(2, 1fr); }
+}
+
+.exp-facts-strip__item {
+	padding: 0.75rem 1rem;
+	border-right: 1px solid var(--xp-border);
+}
+
+.exp-facts-strip__item:last-child { border-right: none; }
+
+@media (max-width: 30rem) {
+	.exp-facts-strip__item:nth-child(2) { border-right: none; }
+	.exp-facts-strip__item:nth-child(n+3) { border-top: 1px solid var(--xp-border); }
+}
+
+.exp-facts-strip dt {
+	margin: 0;
+	font-size: 0.65rem;
+	font-weight: 800;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+	color: var(--xp-text-dim);
+	line-height: 1.3;
+}
+
+.exp-facts-strip dd {
+	margin: 0.25rem 0 0;
+	font-size: var(--xp-text-base);
+	font-weight: 650;
+	color: var(--xp-text-bright);
+	line-height: 1.3;
+}
+
+/* ═══════════════════════════════════════════════════
+   QUICK ANSWER
+   ═══════════════════════════════════════════════════ */
+
+.exp-answer {
+	margin: 0 0 2.5rem;
+	padding: 1rem 1.15rem;
+	border-left: 3px solid var(--xp-accent);
+	background: color-mix(in srgb, var(--xp-accent) 6%, transparent);
+}
+
+.exp-answer__label {
+	margin: 0 0 0.35rem;
+	font-size: 0.65rem;
+	font-weight: 800;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+	color: var(--xp-accent);
+}
+
+.exp-answer__text {
+	margin: 0;
+	font-size: var(--xp-text-base);
+	line-height: 1.6;
+	color: var(--xp-text-bright);
+}
+
+/* ═══════════════════════════════════════════════════
+   ON THIS PAGE
+   ═══════════════════════════════════════════════════ */
+
+.exp-on-this-page {
+	margin: 0 0 3rem;
+	padding: 1.5rem 1.65rem;
+	border: 1px solid var(--xp-border);
+	background: color-mix(in srgb, var(--xp-surface) 35%, transparent);
+}
+
+.exp-on-this-page__title {
+	margin: 0 0 1rem;
+	font-size: 0.68rem;
+	letter-spacing: 0.2em;
+	text-transform: uppercase;
+	color: var(--xp-text-dim);
+}
+
+.exp-on-this-page__list {
+	display: grid;
+	gap: 0;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.exp-on-this-page__item {
+	display: flex;
+	align-items: baseline;
+	gap: 1rem;
+	padding: 0.75rem 0;
+	border-bottom: 1px solid var(--xp-border);
+}
+
+.exp-on-this-page__item:last-child { border-bottom: none; padding-bottom: 0; }
+
+.exp-on-this-page__item a {
+	text-decoration: none;
+	color: var(--xp-text-bright);
+	font-size: clamp(1rem, 2vw, 1.1rem);
+	font-weight: 650;
+	transition: color 120ms;
+}
+
+.exp-on-this-page__item a:hover { color: var(--xp-accent-text); }
+
+.exp-on-this-page__number { flex-shrink: 0; }
+
+/* ═══════════════════════════════════════════════════
+   BODY — prose + editorial numbering
+   ═══════════════════════════════════════════════════ */
+
+.exp-guide-body-wrap {
+	counter-reset: exp-guide-section;
+}
+
+/* Editorial number for top-level H2 sections only.
+   The heading text and id stay untouched (`<h2 id="core-loop">Core loop</h2>`). */
+.exp-guide-prose h2 {
+	display: flex;
+	align-items: baseline;
+	gap: 1rem;
+	counter-increment: exp-guide-section;
+	scroll-margin-top: 6rem;
+}
+
+.exp-guide-prose h2::before {
+	content: counter(exp-guide-section, decimal-leading-zero);
+	font-weight: 900;
+	letter-spacing: -0.06em;
+	color: var(--xp-accent-dim);
+	font-size: clamp(1.4rem, 3vw, 2rem);
+	line-height: 1;
+	flex-shrink: 0;
+}
+
+.exp-guide-prose h3,
+.exp-guide-prose h4 {
+	scroll-margin-top: 6rem;
+}
+
+/* Prose typography (mirrors the reading rhythm of the editorial layer) */
+.exp-guide-prose {
+	color: var(--xp-text);
+	line-height: 1.8;
+	font-size: var(--xp-text-base);
+}
+
+.exp-guide-prose > :first-child { margin-top: 0; }
+
+.exp-guide-prose p { margin: 0 0 1.15rem; }
+
+.exp-guide-prose h2 {
+	margin: 3rem 0 0.5rem;
+	padding-top: 3rem;
+	border-top: 1px solid var(--xp-border);
+	font-size: clamp(1.4rem, 3vw, 1.9rem);
+	font-weight: 800;
+	letter-spacing: -0.03em;
+	line-height: 1.15;
+	color: var(--xp-text-bright);
+}
+
+.exp-guide-prose > h2:first-child {
+	border-top: none;
+	padding-top: 0;
+	margin-top: 0;
+}
+
+.exp-guide-prose h3 {
+	margin: 2rem 0 0.65rem;
+	font-size: clamp(1.05rem, 2.2vw, 1.2rem);
+	font-weight: 750;
+	color: var(--xp-text-bright);
+}
+
+.exp-guide-prose h4 {
+	margin: 1.5rem 0 0.5rem;
+	font-size: var(--xp-text-base);
+	font-weight: 700;
+	color: var(--xp-text-bright);
+}
+
+.exp-guide-prose ul,
+.exp-guide-prose ol {
+	margin: 0 0 1.15rem;
+	padding-left: 1.4rem;
+}
+
+.exp-guide-prose li { margin: 0.25rem 0; }
+
+.exp-guide-prose li > ul,
+.exp-guide-prose li > ol { margin-bottom: 0.25rem; }
+
+.exp-guide-prose a {
+	color: var(--xp-accent-text);
+	text-decoration: none;
+}
+
+.exp-guide-prose a:hover { text-decoration: underline; }
+
+.exp-guide-prose table {
+	width: 100%;
+	border-collapse: collapse;
+	margin: 1.25rem 0;
+	font-size: var(--xp-text-sm);
+}
+
+.exp-guide-prose th,
+.exp-guide-prose td {
+	padding: 0.65rem 0.85rem;
+	border: 1px solid var(--xp-border);
+	text-align: left;
+}
+
+.exp-guide-prose th {
+	font-weight: 700;
+	color: var(--xp-text-bright);
+	background: color-mix(in srgb, var(--xp-surface) 50%, transparent);
+}
+
+.exp-guide-prose img {
+	display: block;
+	max-width: 100%;
+	height: auto;
+	margin: 1.5rem 0;
+	border: 1px solid var(--xp-border);
+}
+
+.exp-guide-prose code {
+	padding: 0.12rem 0.35rem;
+	border-radius: 4px;
+	background: color-mix(in srgb, var(--xp-surface) 70%, transparent);
+	font-size: 0.9em;
+	color: var(--xp-text-bright);
+}
+
+.exp-guide-prose pre {
+	overflow-x: auto;
+	margin: 1.25rem 0;
+	padding: 1rem;
+	border: 1px solid var(--xp-border);
+	background: var(--xp-surface-dark);
+}
+
+.exp-guide-prose blockquote {
+	margin: 1.25rem 0;
+	padding: 0.25rem 0 0.25rem 1rem;
+	border-left: 3px solid var(--xp-border);
+	color: var(--xp-text-muted);
+}
+
+/* Starlight asides keep their semantics inside the editorial body */
+.exp-guide-prose .starlight-aside {
+	margin: 1.25rem 0;
+}
+
+/* ═══════════════════════════════════════════════════
+   EVIDENCE (content width) / SOURCES (reading width)
+   ═══════════════════════════════════════════════════ */
+
+.exp-guide-evidence-wrap,
+.exp-guide-sources-wrap {
+	padding-bottom: 2.5rem;
+}
+
+.exp-guide-evidence-wrap .gw-guide-evidence h2,
+.exp-guide-sources-wrap .gw-sources h2 {
+	margin: 0 0 1rem;
+	font-size: 0.68rem;
+	font-weight: 800;
+	letter-spacing: 0.2em;
+	text-transform: uppercase;
+	color: var(--xp-accent);
+}
+
+.exp-guide-evidence-wrap .gw-guide-evidence ul,
+.exp-guide-sources-wrap .gw-sources ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.exp-guide-evidence-wrap .gw-guide-evidence li {
+	margin-bottom: 2rem;
+}
+
+.exp-guide-evidence-wrap .gw-guide-evidence figure {
+	margin: 0;
+}
+
+.exp-guide-evidence-wrap .gw-guide-evidence figure img {
+	display: block;
+	width: 100%;
+	aspect-ratio: 21 / 9;
+	object-fit: cover;
+	border: 1px solid var(--xp-border-subtle);
+}
+
+.exp-guide-evidence-wrap .gw-guide-evidence figcaption {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.4rem 1rem;
+	align-items: baseline;
+	margin-top: 0.5rem;
+	font-size: var(--xp-text-xs);
+	color: var(--xp-text-dim);
+}
+
+.exp-guide-evidence-wrap .gw-guide-evidence a {
+	color: var(--xp-accent-text);
+	text-decoration: none;
+}
+
+.exp-guide-sources-wrap .gw-sources li + li {
+	border-top: 1px solid var(--xp-border);
+}
+
+.exp-guide-sources-wrap .gw-sources a {
+	display: flex;
+	justify-content: space-between;
+	gap: 1rem;
+	align-items: baseline;
+	padding: 0.85rem 0;
+	text-decoration: none;
+	color: var(--xp-text-bright);
+}
+
+.exp-guide-sources-wrap .gw-sources a:hover .gw-sources__title { color: var(--xp-accent-text); }
+
+.exp-guide-sources-wrap .gw-sources__title { font-weight: 650; }
+
+.exp-guide-sources-wrap .gw-sources__type {
+	font-size: var(--xp-text-xs);
+	color: var(--xp-text-dim);
+	white-space: nowrap;
+}
+
+/* ═══════════════════════════════════════════════════
+   NEXT QUESTIONS
+   ═══════════════════════════════════════════════════ */
+
+.exp-guide-next {
+	padding-top: 3rem;
+	border-top: 1px solid var(--xp-border);
+	margin-top: 2.5rem;
+}
+
+.exp-guide-next__heading {
+	margin: 0.5rem 0 0;
+	font-size: clamp(1.1rem, 2.4vw, 1.3rem);
+	font-weight: 750;
+	color: var(--xp-text-bright);
+}
+
+.exp-guide-next__list { display: grid; gap: 0; margin-top: 1.5rem; }
+
+.exp-guide-next__item {
+	display: grid;
+	grid-template-columns: 3rem 1fr auto;
+	gap: 0 1rem;
+	align-items: center;
+	padding: 1.25rem 0;
+	border-bottom: 1px solid var(--xp-border);
+	text-decoration: none;
+	color: inherit;
+}
+
+.exp-guide-next__item:last-child { border-bottom: none; }
+.exp-guide-next__item:hover .exp-guide-next__title { color: var(--xp-accent-text); }
+
+.exp-guide-next__number { flex-shrink: 0; }
+
+.exp-guide-next__body { display: grid; gap: 0.2rem; }
+
+.exp-guide-next__title {
+	font-size: clamp(1rem, 2vw, 1.1rem);
+	font-weight: 700;
+	color: var(--xp-text-bright);
+	transition: color 120ms;
+}
+
+.exp-guide-next__desc {
+	font-size: var(--xp-text-sm);
+	color: var(--xp-text-muted);
+}
+
+.exp-guide-next__arrow {
+	color: var(--xp-text-dim);
+	font-size: var(--xp-text-lg);
+}
+
+/* ═══════════════════════════════════════════════════
+   MORE REFERENCES (weak)
+   ═══════════════════════════════════════════════════ */
+
+.exp-guide-references {
+	margin-top: 2rem;
+	padding-top: 1.5rem;
+	border-top: 1px solid var(--xp-border);
+	opacity: 0.65;
+}
+
+.exp-guide-references__list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.4rem 1.4rem;
+	margin: 0.75rem 0 0;
+	padding: 0;
+	list-style: none;
+}
+
+.exp-guide-references__list a {
+	color: var(--xp-text-muted);
+	text-decoration: none;
+	font-size: var(--xp-text-sm);
+}
+
+.exp-guide-references__list a:hover {
+	color: var(--xp-accent-text);
+	text-decoration: underline;
+}
+
+/* ═══════════════════════════════════════════════════
+   ROUTE CONTEXT + OTHER ROUTES
+   ═══════════════════════════════════════════════════ */
+
+.exp-guide-route-ctx {
+	margin-top: 2rem;
+	padding: 1.25rem 1.35rem;
+	border: 1px solid var(--xp-border);
+	background: color-mix(in srgb, var(--xp-surface) 30%, transparent);
+}
+
+.exp-guide-route-ctx__eyebrow {
+	font-size: 0.65rem;
+	letter-spacing: 0.18em;
+	text-transform: uppercase;
+	color: var(--xp-text-dim);
+	margin-bottom: 0.35rem;
+}
+
+.exp-guide-route-ctx__label {
+	font-size: clamp(1rem, 2vw, 1.15rem);
+	font-weight: 750;
+	color: var(--xp-text-bright);
+	margin-bottom: 0.85rem;
+}
+
+.exp-guide-route-ctx__actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.85rem;
+}
+
+.exp-guide-route-ctx__actions a {
+	color: var(--xp-accent-text);
+	text-decoration: none;
+	font-weight: 600;
+}
+
+.exp-guide-route-ctx__actions a:hover { text-decoration: underline; }
+
+.exp-guide-other-routes {
+	margin-top: 1.5rem;
+	padding-top: 1.5rem;
+	border-top: 1px solid var(--xp-border);
+	opacity: 0.7;
+}
+
+.exp-guide-other-routes .exp-eyebrow { margin-bottom: 1rem; }
+
+.exp-other-routes {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 0.75rem;
+}
+
+@media (min-width: 50rem) {
+	.exp-other-routes { grid-template-columns: repeat(3, 1fr); }
+}
+
+.exp-other-route {
+	display: flex;
+	align-items: center;
+	gap: 0.85rem;
+	padding: 1.15rem 1.25rem;
+	border: 1px solid var(--xp-border);
+	text-decoration: none;
+	color: inherit;
+	transition: border-color 120ms;
+}
+
+.exp-other-route:hover { border-color: var(--xp-accent-text); }
+
+.exp-other-route__number { flex-shrink: 0; }
+
+.exp-other-route__label {
+	font-weight: 700;
+	color: var(--xp-text-bright);
+}

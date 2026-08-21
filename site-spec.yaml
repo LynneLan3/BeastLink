@@ -1,0 +1,256 @@
+schemaVersion: 1
+templateVersion: 2.0.0
+mode: generated-site
+
+site:
+  id: beastlink
+  locale: en
+  siteUrl: https://beast-link.vercel.app/
+  hubPath: /beastlink/
+  title: BeastLink Guide & Wiki
+  shortName: BeastLink
+  description: Source-led BeastLink guide hub covering Early Access timing, Kaiju multiplayer gameplay, human and Beast roles, platforms, and PC requirements.
+  disclaimer: Unofficial fan guide built from cited official and store sources.
+
+deployment:
+  provider: vercel
+  orgId: "team_yAOizMTSVuT0RJATgFdAlQuG"
+  projectId: "prj_dZvinCRF9XZYNXb4E0JGT402fA01"
+  projectName: beast-link
+  productionUrl: https://beast-link.vercel.app/
+  productionBranch: main
+
+game:
+  name: BeastLink
+  hubTitle: BeastLink Guide & Wiki
+  tagline: Confirmed Early Access information for humans, vehicles, Beasts, and destructible multiplayer battles.
+  releaseStatus: early-access
+  releaseDate: 2026-08-18
+  developer: Grove Street Games
+  publisher: Grove Street Games
+  platforms:
+    - PC via Steam
+
+theme:
+  accentColor: "#be123c"
+  accentForeground: "#ffffff"
+  heroAssetId: hero
+  heroPosition: center 42%
+
+categories:
+  - id: gameplay-modes
+    label: Gameplay
+    description: Confirmed roles, destruction, multiplayer framing, and the current Early Access snapshot.
+    icon: puzzle
+    order: 1
+    imageAssetId: null
+  - id: game-info
+    label: Game Info
+    description: Early Access timing, release state, developer, and platform context.
+    icon: information
+    order: 2
+    imageAssetId: null
+  - id: pc-requirements
+    label: PC Requirements
+    description: The PC minimums and published memory guidance currently listed by Steam.
+    icon: laptop
+    order: 3
+    imageAssetId: null
+
+pages:
+  - id: release-date
+    title: BeastLink Release Date and Early Access Status
+    description: Confirmed BeastLink Early Access date, current unreleased status at research time, developer, and platform caveats.
+    category: game-info
+    slug: release-date
+    source: site-input/pages/release-date.md
+    status: confirmed
+    featured: true
+    sidebarOrder: 1
+    role: core
+    intents:
+      - release-date
+      - early-access
+    quickAnswer: Steam lists BeastLink Early Access for August 18, 2026, while the official site gives an August 2026 Early Access window. The research snapshot still showed the product as not yet released.
+    eyebrow: Release Info
+    facts:
+      - label: Early Access
+        value: "2026-08-18"
+      - label: Platform
+        value: PC via Steam
+      - label: Developer
+        value: Grove Street Games
+    related:
+      - gameplay
+      - system-requirements
+    relations:
+      - pageId: gameplay
+        type: next-step
+      - pageId: system-requirements
+        type: related
+    assetType: article
+    sources:
+      - type: official
+        title: Official BeastLink website
+        url: https://playbeastlink.com/
+      - type: steam
+        title: BeastLink on Steam
+        url: https://store.steampowered.com/app/2962780/BeastLink/
+      - type: steam
+        title: BeastLink Steam Community hub
+        url: https://steamcommunity.com/app/2962780/
+    evidence: []
+    changeSummary: Migrated to generated content schema.
+  - id: gameplay
+    title: "BeastLink Gameplay: Humans, Vehicles, Beasts, and Destruction"
+    description: Confirmed BeastLink gameplay systems, including human, vehicle, and Beast roles, serum-based BeastLinking, SuperDestruction, and the current Early Access snapshot.
+    category: gameplay-modes
+    slug: gameplay
+    source: site-input/pages/gameplay.md
+    status: confirmed
+    featured: true
+    sidebarOrder: 1
+    role: core
+    intents:
+      - gameplay
+      - kaiju-multiplayer
+    quickAnswer: BeastLink is framed as an online PvP/PvE Kaiju game where humans, vehicles, and Beasts collide in destructible urban environments; Steam's current Early Access FAQ also lists maps, Beasts, modes, servers, progression, and offline features.
+    eyebrow: Gameplay Overview
+    facts:
+      - label: Players
+        value: Up to 32
+      - label: Modes
+        value: Online PvP/PvE
+      - label: Snapshot
+        value: Early Access FAQ
+    related:
+      - release-date
+      - system-requirements
+    relations:
+      - pageId: release-date
+        type: related
+      - pageId: system-requirements
+        type: next-step
+    assetType: article
+    sources:
+      - type: official
+        title: Official BeastLink website
+        url: https://playbeastlink.com/
+      - type: steam
+        title: BeastLink on Steam
+        url: https://store.steampowered.com/app/2962780/BeastLink/
+      - type: steam
+        title: BeastLink Steam Community hub
+        url: https://steamcommunity.com/app/2962780/
+    evidence: []
+    changeSummary: Migrated to generated content schema.
+  - id: system-requirements
+    title: BeastLink PC System Requirements
+    description: Current BeastLink PC minimum and published memory requirements from the Steam listing.
+    category: pc-requirements
+    slug: system-requirements
+    source: site-input/pages/system-requirements.md
+    status: confirmed
+    featured: true
+    sidebarOrder: 1
+    role: supporting
+    intents:
+      - system-requirements
+      - pc-specs
+    quickAnswer: Steam lists Windows 10, 16 GB RAM minimum or 32 GB recommended, DirectX 12, RTX 2060 or RX 5600 XT minimum-class graphics, 30 GB storage, and broadband internet for BeastLink.
+    eyebrow: PC Requirements
+    facts:
+      - label: OS
+        value: Windows 10
+      - label: Memory
+        value: 16 GB minimum
+      - label: Storage
+        value: 30 GB
+    related:
+      - release-date
+      - gameplay
+    relations:
+      - pageId: gameplay
+        type: related
+      - pageId: release-date
+        type: related
+    assetType: reference
+    sources:
+      - type: steam
+        title: BeastLink on Steam
+        url: https://store.steampowered.com/app/2962780/BeastLink/
+    evidence: []
+    changeSummary: Migrated to generated content schema.
+
+routes:
+  - id: getting-started
+    eyebrow: Player Route
+    title: Start Playing
+    description: Helps new players quickly confirm whether BeastLink is playable, what kind of game it is, and whether their PC can run it.
+    fastAnswers:
+      - question: When does Early Access start?
+        answer: Steam lists BeastLink Early Access for August 18, 2026.
+        pageId: release-date
+      - question: What kind of Kaiju multiplayer is this?
+        answer: BeastLink is framed as online PvP/PvE Kaiju multiplayer with humans, vehicles, Beasts, and destructible urban environments.
+        pageId: gameplay
+      - question: Can my PC run it?
+        answer: Check the current Steam-listed Windows, memory, graphics, storage, DirectX, and network requirements.
+        pageId: system-requirements
+    pages:
+      - release-date
+      - gameplay
+      - system-requirements
+
+homepage:
+  primaryCta:
+    label: Start Playing
+    pageId: release-date
+  secondaryCta:
+    label: Browse Guides
+    anchor: browse-guides
+  statusItems:
+    - label: Early Access
+      value: "2026-08-18"
+    - label: Platform
+      value: PC via Steam
+    - label: Developer
+      value: Grove Street Games
+  popularQuestions:
+    - label: When does BeastLink Early Access start?
+      context: Release date and platform caveats
+      pageId: release-date
+    - label: How do humans, vehicles, and Beasts work?
+      context: Gameplay roles and Early Access snapshot
+      pageId: gameplay
+    - label: What are the PC requirements?
+      context: Steam-listed minimums and memory guidance
+      pageId: system-requirements
+  startHere:
+    - pageId: release-date
+      label: Availability
+      badge: Start here
+    - pageId: gameplay
+      label: Gameplay
+    - pageId: system-requirements
+      label: PC Requirements
+
+assets:
+  - id: hero
+    source: site-input/assets/hero.jpg
+    target: hero.jpg
+    alt: Official Steam screenshot for BeastLink
+    sourceType: store
+    usageStatus: approved
+
+trust:
+  enabled: true
+  privacy:
+    enabled: true
+    source: site-input/trust/privacy.md
+
+analytics:
+  enabled: true
+  provider: ga4
+  measurementId: G-ME3VVC6QLD
+  trackOutbound: true

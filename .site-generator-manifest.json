@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "templateVersion": "2.0.0",
+  "generatorVersion": "1.0.0",
+  "specHash": "c564f26b9b09fcc73771627429d9a7c9e919c47006388afb2112535cac68d684",
+  "siteId": "beastlink",
+  "createdFromSpec": "site-spec.yaml",
+  "managedFiles": [
+    {
+      "path": "public/239b36bd-0469-468d-94fd-570c5045e106.txt",
+      "sha256": "77614af11f7ef55025ebdc05101749a5428b73e4170461ac82a489d4ca52771b",
+      "kind": "other"
+    },
+    {
+      "path": "src/assets/hero.jpg",
+      "sha256": "aee4169f6780ee5c91142fbe8dd054a59ba89bd4501a3b142d3cff54cdfbc01d",
+      "kind": "asset"
+    },
+    {
+      "path": "src/config/indexnow-key.json",
+      "sha256": "7780aba052baf860856d4be0db99b35698a32e9345a30af8b81b2d5c6a7e644e",
+      "kind": "config"
+    },
+    {
+      "path": "src/config/site.generated.ts",
+      "sha256": "fd4bd8b32238e5916ca3538236502a64cc672f5e1e5930de37120ee336410ea2",
+      "kind": "config"
+    },
+    {
+      "path": "src/content/docs/game-info/release-date.md",
+      "sha256": "b2412a357daf0d4706cf24d9e0572a3f4b4767915b44884c6dbe4ec17bdeed89",
+      "kind": "page"
+    },
+    {
+      "path": "src/content/docs/gameplay-modes/gameplay.md",
+      "sha256": "98e5f7de5d1f4546b7194c70c56bc55f25ec0f986d7a57da5eb1e9cf4322e0df",
+      "kind": "page"
+    },
+    {
+      "path": "src/content/docs/index.mdx",
+      "sha256": "8ed717f191110d26182e460deb6b90a3c8485635eb7ac4200e4f92db877f53a8",
+      "kind": "hub"
+    },
+    {
+      "path": "src/content/docs/pc-requirements/system-requirements.md",
+      "sha256": "a5446f417fb39a835996c7dfb2db0c5250f8d32c833ef67d6839659e94e2980c",
+      "kind": "page"
+    },
+    {
+      "path": "src/content/trust/privacy.md",
+      "sha256": "acf00f2acb4f5e3971c5eac5c7ebc606eecfef1d1f0efc6b0d72f97f18854a50",
+      "kind": "trust"
+    }
+  ],
+  "managedAssets": [
+    {
+      "id": "hero",
+      "target": "hero.jpg",
+      "source": "site-input/assets/hero.jpg",
+      "sha256": "aee4169f6780ee5c91142fbe8dd054a59ba89bd4501a3b142d3cff54cdfbc01d",
+      "usageStatus": "approved",
+      "sourceType": "store"
+    }
+  ]
+}

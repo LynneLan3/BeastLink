@@ -1,4 +1,4 @@
-export const OUTBOUND_KINDS = ['content', 'source', 'evidence', 'other'] as const;
+export const OUTBOUND_KINDS = ['content', 'source', 'evidence', 'affiliate', 'other'] as const;
 export type OutboundKind = (typeof OUTBOUND_KINDS)[number];
 
 export const GA4_MEASUREMENT_ID = /^G-[A-Z0-9]+$/;
@@ -52,7 +52,13 @@ export function isSameSiteHref(href: string, siteHosts: readonly string[], baseO
 }
 
 export function outboundKindFromDataset(value: string | null | undefined): OutboundKind {
-	if (value === 'source' || value === 'evidence' || value === 'other' || value === 'content') {
+	if (
+		value === 'source' ||
+		value === 'evidence' ||
+		value === 'other' ||
+		value === 'content' ||
+		value === 'affiliate'
+	) {
 		return value;
 	}
 	return 'content';

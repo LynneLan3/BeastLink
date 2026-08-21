@@ -7,6 +7,7 @@ export const GUIDE_STATUSES = [
 
 export type GuideStatusValue = (typeof GUIDE_STATUSES)[number];
 
+/** @deprecated Prefer `statusLabel()` from `src/lib/ui.ts` for locale-aware labels. */
 export const STATUS_LABELS: Record<GuideStatusValue, string> = {
 	'pre-release': 'Pre-release',
 	confirmed: 'Confirmed',

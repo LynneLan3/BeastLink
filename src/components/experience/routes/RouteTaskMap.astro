@@ -1,0 +1,56 @@
+---
+/**
+ * Player Task Map — formal Routes Index body.
+ * /{hubPath}/routes/
+ *
+ * Answers "what do I want to do?" Each route shows only number, optional
+ * visual, title, description and an "Open route" CTA — no guide list. That is
+ * what distinguishes it from the Guides Index (guide library grouped by route).
+ *
+ * Consumes `game.routes` only; number is derived from array index.
+ */
+import { assetUrl } from './asset-url';
+import { ui } from '../../../lib/ui';
+import type { GameRoute } from '../../../config/game-types';
+
+interface Props {
+	routes: readonly GameRoute[];
+}
+
+const { routes } = Astro.props;
+const t = ui();
+---
+
+<section class="exp-taskmap-hero">
+	<div class="exp-content">
+		<p class="exp-eyebrow">{t.playerRoutes}</p>
+		<h1 class="exp-h1">{t.routesNav}</h1>
+		<p class="exp-lede">{t.chooseWhatYoureTryingLede}</p>
+	</div>
+</section>
+
+<section class="exp-content exp-taskmap" aria-label={t.routesNav}>
+	{routes.map((route, index) => {
+		const number = String(index + 1).padStart(2, '0');
+		const visualUrl = assetUrl(route.visual);
+		return (
+			<a
+				class:list={['exp-task-route', !visualUrl && 'exp-task-route--content-only']}
+				href={route.href}
+			>
+				{visualUrl && (
+					<div class="exp-task-route__visual">
+						<img src={visualUrl} alt={`${route.title} route visual`} />
+						<span class="exp-number exp-number--watermark exp-task-route__watermark">{number}</span>
+					</div>
+				)}
+				<div class="exp-task-route__content">
+					<span class="exp-number exp-number--lg exp-task-route__number">{number}</span>
+					<span class="exp-task-route__title">{route.title}</span>
+					<p class="exp-task-route__desc">{route.description}</p>
+					<span class="exp-cta-link exp-task-route__cta">{t.openRoute(route.title)}</span>
+				</div>
+			</a>
+		);
+	})}
+</section>

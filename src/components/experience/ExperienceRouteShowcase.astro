@@ -1,0 +1,73 @@
+---
+/**
+ * ExperienceRouteShowcase — homepage "Choose Your Route" section (V2.2-E1).
+ *
+ * Consumes `game.routes` only. Route numbers are derived from array index
+ * (`01`, `02`, …). `route.visual` is optional: when absent a content-only
+ * variant renders (no image, no placeholder, no broken-image state). The
+ * interleaved editorial composition alternates the visual column.
+ */
+import { Image } from 'astro:assets';
+import type { GameRoute } from '../../config/game-types';
+import { resolveGameAsset } from '../../lib/assets';
+import { routeNumber } from '../../lib/experience-homepage';
+import { ui } from '../../lib/ui';
+
+interface Props {
+	routes: readonly GameRoute[];
+}
+
+const { routes } = Astro.props;
+const t = ui();
+const visuals = routes.map((route, index) =>
+	resolveGameAsset(route.visual, `game.routes[${index}].visual`),
+);
+---
+
+<section class="exp-section exp-section--dark exp-home-routes" id="routes" aria-labelledby="exp-home-routes-heading">
+	<div class="exp-content">
+		<p class="exp-eyebrow">{t.chooseYourRoute}</p>
+		<h2 class="exp-h2" id="exp-home-routes-heading">{t.chooseYourRouteTitle}</h2>
+		<p class="exp-lede">{t.routeGroupsLede}</p>
+	</div>
+	<div class="exp-content">
+		<div class="exp-routes">
+			{routes.map((route, index) => {
+				const visual = visuals[index];
+				return (
+					<a
+						class:list={['exp-route-entry', !visual && 'exp-route-entry--content-only']}
+						href={route.href}
+					>
+						{visual && (
+							<div class="exp-route-entry__visual">
+								<Image
+									src={visual}
+									alt={`${route.title} route visual`}
+									width={1280}
+									height={800}
+									sizes="(min-width: 50rem) 40vw, 100vw"
+									loading="lazy"
+								/>
+								<span class="exp-number exp-number--watermark">{routeNumber(index)}</span>
+							</div>
+						)}
+						<div class="exp-route-entry__body">
+							{!visual && (
+								<span class="exp-number exp-number--lg exp-route-entry__number">
+									{routeNumber(index)}
+								</span>
+							)}
+							<span class="exp-route-entry__number-label">
+								{route.eyebrow ?? t.routeNumberLabel(routeNumber(index))}
+							</span>
+							<h3 class="exp-route-entry__title">{route.title}</h3>
+							<p class="exp-route-entry__desc">{route.description}</p>
+							<span class="exp-cta-link">{t.openRoute(route.title)}</span>
+						</div>
+					</a>
+				);
+			})}
+		</div>
+	</div>
+</section>

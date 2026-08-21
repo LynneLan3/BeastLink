@@ -1,0 +1,43 @@
+---
+import Default from '@astrojs/starlight/components/MarkdownContent.astro';
+import GuideEvidence from '../GuideEvidence.astro';
+import SourceList from '../SourceList.astro';
+import ExperienceGuideSections from '../experience/ExperienceGuideSections.astro';
+import ExperienceHomepage from '../experience/ExperienceHomepage.astro';
+import { isTrustPath } from '../../lib/trust';
+import { isExperienceGuide, isExperienceHomepage } from '../../lib/experience-guide';
+
+const entry = Astro.locals.starlightRoute.entry;
+const isHome = isExperienceHomepage(entry);
+const isSplash = entry.data.template === 'splash';
+const isTrust = isTrustPath(Astro.url.pathname);
+const isExperience = isExperienceGuide(entry, Astro.url.pathname);
+---
+
+{
+		isHome ? (
+			// Formal Homepage: fully data-driven composition owns the splash slot.
+			<ExperienceHomepage />
+	) : isExperience ? (
+		<>
+			<div class="exp-guide-body-wrap exp-guide-prose">
+				<slot />
+			</div>
+			<ExperienceGuideSections />
+		</>
+	) : (
+		<>
+			<Default>
+				<slot />
+			</Default>
+			{
+				!isSplash && !isTrust && (
+					<>
+						<GuideEvidence />
+						<SourceList />
+					</>
+				)
+			}
+		</>
+	)
+}
